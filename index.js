@@ -6,7 +6,7 @@ const env = process.env.NODE_ENV || 'beta';
 
 exports.register = async function(plugin, options, next) {
   const config = options.config;
-  plugin.route(routes(config));
+  plugin.route(Routes(config));
   return next();
 }
 
