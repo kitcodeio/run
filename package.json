@@ -1,0 +1,23 @@
+{
+  "name": "run",
+  "version": "1.0.0",
+  "description": "docker manupulation utility",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/kitcode/run.git"
+  },
+  "author": "Kitcode Pvt. Ltd.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/kitcode/run/issues"
+  },
+  "homepage": "https://gitlab.com/kitcode/run#readme",
+  "dependencies": {
+    "dockerode": "^2.5.7",
+    "shelljs": "^0.8.3"
+  }
+}
