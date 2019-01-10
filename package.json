@@ -4,7 +4,7 @@
   "description": "docker manupulation utility",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "export NODE_NO_WARNINGS=1 && mocha || true"
   },
   "repository": {
     "type": "git",
@@ -21,5 +21,10 @@
     "hapi": "^16.6.3",
     "shelljs": "^0.8.3",
     "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "cli-progress": "^2.1.1",
+    "mocha": "^5.2.0"
   }
 }
