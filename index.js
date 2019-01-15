@@ -1,7 +1,7 @@
 'use strict';
 
 const Routes = require('./lib/routes');
-const Socket = require('./lib/socket');
+const Socket = require('./lib/Socket');
 const env = process.env.NODE_ENV || 'beta';
 
 exports.register = async function(plugin, options, next) {
