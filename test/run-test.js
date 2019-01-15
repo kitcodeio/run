@@ -5,8 +5,8 @@ const docker = new require('dockerode')();
 const progress = require('cli-progress');
 const env = process.env || 'beta';
 const config = require('../config/config.json')[env];
-const DockerApi = require('../lib/DockerApi');
-const Socket = require('../lib/socket');
+const DockerApi = require('../lib/Docker');
+const Socket = require('../lib/Socket');
 
 const api = new DockerApi(config);
 
