@@ -4,7 +4,7 @@
   "description": "docker manupulation utility",
   "main": "index.js",
   "scripts": {
-    "test": "export NODE_NO_WARNINGS=1 && mocha || true"
+    "test": "export NODE_NO_WARNINGS=1 && mocha --reporter spec"
   },
   "repository": {
     "type": "git",
