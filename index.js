@@ -6,7 +6,7 @@ const env = process.env.NODE_ENV || 'beta';
 
 exports.register = async function(plugin, options, next) {
   let config = options.config;
-  new Socket();
+  new Socket(config, plugin.listener);
   plugin.route(Routes(config));
   return next();
 }
