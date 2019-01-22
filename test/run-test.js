@@ -36,14 +36,14 @@ describe('run api test', () => {
         if (!err) return done();
       });
     });
-    it('test #2: verify ubuntu image', done => {
-      let image = docker.getImage('ubuntu');
+    it('test #2: verify alpine image', done => {
+      let image = docker.getImage('alpine');
       image.inspect((err, info) => {
         if (!err) return done();
-        docker.pull('ubuntu:latest', (err, stream) => {
+        docker.pull('alpine:latest', (err, stream) => {
           if (err) return done(err);
-          console.log('local ubuntu image not found');
-          console.log('pull ubuntu:latest from docker hub');
+          console.log('local alpine image not found');
+          console.log('pull alpine:latest from docker hub');
           const bar = new progress.Bar();
           let value = 0;
           bar.start(135, value);
@@ -82,7 +82,7 @@ describe('run api test', () => {
         }
       });
       socket.emit('build:image', {
-        dockerfile: 'FROM ubuntu\nRUN something',
+        dockerfile: 'FROM alpine\nRUN something',
         id: 'test2'
       });
     });
@@ -128,7 +128,7 @@ describe('run api test', () => {
         }
       });
       socket.emit('build:image', {
-        dockerfile: 'FROM ubuntu',
+        dockerfile: 'FROM alpine',
         id: 'test4',
       });
     });
