@@ -60,17 +60,6 @@ describe('run api test', () => {
   });
 
   describe('Image Creation', () => {
-    it('test #1: return error when dockerfile incorrect', done => {
-      socket.on('build:init', res => {
-        expect(res.statusCode).to.equal(500);
-        delete socket.events['build:init'];
-        return done();
-      });
-      socket.emit('build:image', {
-        dockerfile: 'wrong dockerfile',
-        id: 'test1'
-      });
-    });
     it('test #2 return 200 statusCode when dockerfile correct', done => {
       socket.on('build:init', res => {
         delete socket.events['build:init'];
@@ -82,7 +71,11 @@ describe('run api test', () => {
         }
       });
       socket.emit('build:image', {
-        dockerfile: 'FROM alpine\nRUN something',
+        modules: [{
+	  vrsions: [{
+	    command: 'something'
+	  }]
+	}],
         id: 'test2'
       });
     });
@@ -105,8 +98,12 @@ describe('run api test', () => {
         }
       });
       socket.emit('build:image', {
-        dockerfile: 'FROM no_image_123',
-        id: 'test3',
+        modules: [{
+	  vrsions: [{
+	    command: 'something'
+	  }]
+	}],
+        id: 'test3'
       });
     }).timeout(30000);
     it('test #4: return 200 on successful image creation', done => {
@@ -128,8 +125,12 @@ describe('run api test', () => {
         }
       });
       socket.emit('build:image', {
-        dockerfile: 'FROM alpine',
-        id: 'test4',
+        modules: [{
+	  vrsions: [{
+	    command: 'touch index.js'
+	  }]
+	}],
+        id: 'test4'
       });
     });
   });
