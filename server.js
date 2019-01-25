@@ -7,6 +7,7 @@ const env = require("./.env.json").env;
 config.db = config.db[env];
 
 const server = new Hapi.Server();
+
 server.connection({
   host: config.server.run.host,
   port: config.server.run.port,
@@ -21,3 +22,5 @@ plugin.register(server, {
   await server.start();
   console.log('kitcode api server is online at http://' + config.server.run.host + ':' + config.server.run.port);
 });
+
+module.exports = server;

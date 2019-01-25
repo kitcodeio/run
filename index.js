@@ -5,7 +5,7 @@ const Socket = require('./lib/Socket');
 
 exports.register = async function(plugin, options, next) {
   let config = options.config;
-  new Socket(config, plugin.listener);
+  //new Socket(config, plugin.listener);
   plugin.route(Routes(config));
   return next();
 }

@@ -8,6 +8,8 @@ const config = require('../config/config.json')[env];
 const DockerApi = require('../lib/Docker');
 const Socket = require('../lib/Socket');
 
+const server = require('../server');
+
 const api = new DockerApi(config);
 
 const socket = {
@@ -58,9 +60,9 @@ describe('run api test', () => {
       });
     }).timeout(60000);
   });
-
+  /*
   describe('Image Creation', () => {
-    it('test #2 return 200 statusCode when dockerfile correct', done => {
+      it('test #2 return 200 statusCode when dockerfile correct', done => {
       socket.on('build:init', res => {
         delete socket.events['build:init'];
         try {
@@ -133,5 +135,36 @@ describe('run api test', () => {
         id: 'test4'
       });
     });
+
+  });*/
+
+  describe('container manupulation testing', () => {  
+    it('start container', async () => {
+      let res = await server.inject({
+        method: 'POST',
+        url: '/start',
+        payload: {
+          image_id: 'node',
+          subdomain: 'something',
+          modules: ['huehue', 'huehue'],
+          test: true
+        }
+      });
+      expect(res.result.State.Status).to.equal('running');
+    }).timeout(60000);
+      it('stop container', async () => {
+      let res = await server.inject({
+        method: 'POST',
+        url: '/stop',
+        payload: {
+          container_id: '5cdea0d49088',
+          subdomain: 'something',
+          test: true
+        }
+      });
+      expect(res.result.statusCode).to.equal(200);
+    }).timeout(60000);
+  
   });
+
 });
