@@ -23,6 +23,8 @@ const socket = {
   disconnect() {}
 };
 
+var c_id;
+
 describe('run api test', () => {
   before(() => {
     const io = new Socket(config);
@@ -60,9 +62,9 @@ describe('run api test', () => {
       });
     }).timeout(60000);
   });
-  /*
+
   describe('Image Creation', () => {
-      it('test #2 return 200 statusCode when dockerfile correct', done => {
+    it('test #1 return 200 statusCode when dockerfile correct', done => {
       socket.on('build:init', res => {
         delete socket.events['build:init'];
         try {
@@ -73,98 +75,74 @@ describe('run api test', () => {
         }
       });
       socket.emit('build:image', {
+        id: 'test1',
         modules: [{
-	  vrsions: [{
-	    command: 'something'
-	  }]
-	}],
+          id: '1',
+          parent_id: null,
+          versions: [{
+            command: 'touch /index.js'
+          }]
+        }],
+      });
+    }).timeout(60000);
+
+    it('test #2: return 200 on successful image creation', done => {
+      socket.on('build:result', res => {
+        delete socket.events['build:result'];
+        delete socket.events['build:init'];
+        try {
+          expect(res.statusCode).to.equal(200);
+          return done();
+        } catch (err) {
+          return done(err);
+        }
+      });
+      socket.on('build:init', res => {
+        if (res.statusCode == 500) {
+          delete socket.events['build:result'];
+          delete socket.events['build:init'];
+          return done(res.error);
+        }
+      });
+      socket.emit('build:image', {
+        modules: [{
+          vrsions: [{
+            command: 'touch /index.js'
+          }]
+        }],
         id: 'test2'
       });
-    });
-    it('test #3: return 500 statusCode when encountered error while building image', done => {
-      socket.on('build:result', res => {
-        delete socket.events['build:result'];
-        delete socket.events['build:init'];
-        try {
-          expect(res.statusCode).to.equal(500);
-          return done();
-        } catch (err) {
-          return done(err);
-        }
-      });
-      socket.on('build:init', res => {
-        if (res.statusCode == 500) {
-          delete socket.events['build:result'];
-          delete socket.events['build:init'];
-          return done(res.error);
-        }
-      });
-      socket.emit('build:image', {
-        modules: [{
-	  vrsions: [{
-	    command: 'something'
-	  }]
-	}],
-        id: 'test3'
-      });
-    }).timeout(30000);
-    it('test #4: return 200 on successful image creation', done => {
-      socket.on('build:result', res => {
-        delete socket.events['build:result'];
-        delete socket.events['build:init'];
-        try {
-          expect(res.statusCode).to.equal(200);
-          return done();
-        } catch (err) {
-          return done(err);
-        }
-      });
-      socket.on('build:init', res => {
-        if (res.statusCode == 500) {
-          delete socket.events['build:result'];
-          delete socket.events['build:init'];
-          return done(res.error);
-        }
-      });
-      socket.emit('build:image', {
-        modules: [{
-	  vrsions: [{
-	    command: 'touch index.js'
-	  }]
-	}],
-        id: 'test4'
-      });
-    });
+    }).timeout(60000);
 
-  });*/
+  });
 
-  describe('container manupulation testing', () => {  
+  describe('container manupulation testing', () => {
     it('start container', async () => {
       let res = await server.inject({
         method: 'POST',
         url: '/start',
         payload: {
-          image_id: 'node',
+          image_id: 'test1',
           subdomain: 'something',
           modules: ['huehue', 'huehue'],
           test: true
         }
       });
+      c_id = res.result.Config.Hostname;
       expect(res.result.State.Status).to.equal('running');
     }).timeout(60000);
-      it('stop container', async () => {
+    it('stop container', async () => {
       let res = await server.inject({
         method: 'POST',
         url: '/stop',
         payload: {
-          container_id: '5cdea0d49088',
+          container_id: c_id,
           subdomain: 'something',
           test: true
         }
       });
       expect(res.result.statusCode).to.equal(200);
     }).timeout(60000);
-  
   });
 
 });
