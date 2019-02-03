@@ -33,6 +33,9 @@
       "host": "localhost"
     }
   },
+  "docker": {
+    "baseImageName": "ubuntu-nginx"
+  },
   "mail": {
     "server": {
       "host": "smtp.mail.us-east-1.awsapps.com",
