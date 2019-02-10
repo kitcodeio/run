@@ -5,6 +5,7 @@ const config = require('./config/config.json');
 const env = require("./.env.json").env;
 
 config.db = config.db[env];
+Config.kide.path = path.join(__dirname, '..', '/kide/build');
 
 const server = new Hapi.Server();
 
