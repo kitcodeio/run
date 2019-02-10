@@ -37,7 +37,7 @@
     "baseImageName": "ubuntu-nginx"
   },
   "kide":{
-     "build": "" 
+     "path": "" 
   },
   "mail": {
     "server": {
