@@ -36,8 +36,8 @@
   "docker": {
     "baseImageName": "ubuntu-nginx"
   },
-  "kide":{
-     "path": "servers/kide/" 
+  "kide":
+     "path": "servers/kide/"
   },
   "mail": {
     "server": {
