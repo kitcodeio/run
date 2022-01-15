@@ -20,7 +20,7 @@
     "dockerode": "^2.5.7",
     "fs": "0.0.1-security",
     "hapi": "^16.6.3",
-    "shelljs": "^0.8.3",
+    "shelljs": "^0.8.5",
     "socket.io": "^2.2.0",
     "tar-fs": "^1.16.3"
   },
